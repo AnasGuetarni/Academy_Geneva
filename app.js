@@ -17,7 +17,7 @@ app.use(express.static(__dirname + "/public"));
 app.set('view engine', 'ejs');
 
 /* Importation des modules externes */
-console.log("\nLoading custom modules:".yellow);
+console.log("\nLoading custom modules:".blue);
 var db = require('./lib/db');
 var dataAccess = require('./lib/dataAccess');
 var routes = require('./lib/router');
