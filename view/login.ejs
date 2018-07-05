@@ -5,10 +5,6 @@
     </head>
 
     <body id="login">
-		<div class="buttonContainer">
-			<button class="bouton suppr shutdown">Éteindre le système</button>
-		</div>
-
         <img src="img/logo_acad.png" alt="Logo" class="logo">
         <form action='/login' method='POST'>
             <div class="group">
@@ -34,12 +30,17 @@
 
 <script>
 
-$(document).ready(function(){
+  $(document).ready(function(){
 
-    // If login or password wrong
-    var erreur = <%- JSON.stringify(erreur) %>;
-    if (erreur)
-        notif("Login ou mot de passe incorrects", "#E74C3C");
-});
+      // If login or password wrong
+      var erreur = <%- JSON.stringify(erreur) %>;
+      if (erreur)
+          notif("Login ou mot de passe incorrects", "#E74C3C");
+  });
+
+  socket.on('res_exist_login', function(loginExist){
+      if (loginExist === false)
+          notif("Cet identifiant n'existe pas", "#E74C3C");
+  });
 
 </script>

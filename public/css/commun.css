@@ -1,21 +1,21 @@
 @font-face {
 	font-family: "Product";
-	src: url("../font/Product Sans.ttf");
+	src: url("../fonts/Product Sans.ttf");
 }
 
 @font-face {
 	font-family: "ProductBold";
-	src: url("../font/Product Sans Bold.ttf");
+	src: url("../fonts/Product Sans Bold.ttf");
 }
 
 @font-face {
 	font-family: "ProductItalic";
-	src: url("../font/Product Sans Italic.ttf");
+	src: url("../fonts/Product Sans Italic.ttf");
 }
 
 @font-face {
 	font-family: "ProductBoldItalic";
-	src: url("../font/Product Sans Bold Italic.ttf");
+	src: url("../fonts/Product Sans Bold Italic.ttf");
 }
 
 * {
