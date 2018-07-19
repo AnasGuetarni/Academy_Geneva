@@ -9,6 +9,7 @@ var session = require('express-session');
 var fs = require('fs');
 var helmet = require('helmet');
 var colors = require('colors');
+var calendar = require('node-calendar');
 
 /* Supports encoded bodies and json encoded bodies */
 app.use(helmet());
@@ -28,6 +29,9 @@ app.use(session({
 	resave: false,
 	saveUninitialized: true,
 }));
+
+var cal = new calendar.Calendar(calendar.SUNDAY);
+var yearCalendar = cal.yeardayscalendar(2004);
 
 /* Importation des modules externes */
 console.log("\nLoading custom modules:".blue);

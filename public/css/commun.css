@@ -59,7 +59,7 @@ header {
 
 .logo {
 	width: 100px;
-	margin: 0 20px;
+	margin: 28px 20px;
 	position: absolute;
 }
 
@@ -93,7 +93,7 @@ header {
 .deconnexion {
 	float: right;
 	height: 50px;
-	padding: 0 40px 0 20px;
+	padding: 0 40px 0 8px;
 	border: none;
 	background-color: #FFF;
 	font-size: 16px;

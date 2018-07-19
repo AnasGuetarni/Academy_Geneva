@@ -9,27 +9,81 @@
 	    	<%- include('./partials/header') -%>
 		</header>
 		<container>
-			<!--calendar-->
+			<div class="listeAbsences">
+				<table>
+					<thead><tr><th>Prenom eleve</th> <th>nom eleve</th><th>date</th><th>type</th><th>état</th></tr></thead>
+					<tbody id="abs">	    <!--	Absences	-->	</tbody>
+					</table>
+			</div>
 
-		    <div class="boutonContainer">
-		    	<button class="bouton" type="button" id='addEvent'>New Event</button>
-		    </div>
+			<div class="boutonContainer">
+				<button class="bouton" type="button" id='addQuestionnaire' >Justifier une absence</button>
+			</div>
+		</container>
+
+		<container>
+			<div class="listeDocuments">
+				<table>
+					<thead><tr><th>Nom du document</th> <th>taille du document</th></tr></thead>
+					<tbody id="doc">	    <!--	Documents	-->	</tbody>
+				</table>
+			</div>
 		</container>
 	</body>
 
 	<script>
 
-	$(document).ready(function() {
+	// Affichage d'un questionnaire
+function absence_show(id_absence){
+	document.location.href=  "./absence/" + id_absence;
+};
 
-	    // Ajout d'un questionnaire
-	    $('#addEvent').click(function(){
-	    	var nomEvent = '';
-	    	//socket.emit('req_add_questionnaire', nomEvent);
-	    	//socket.on('res_add_questionnaire', function(id_quest){
-				//document.location.href = './questionnaire/'+ id_quest;
-	    	});
-	    });
+// Affichage d'un questionnaire
+function document_show(id_doc){
+document.location.href=  "./document/" + id_doc;
+};
 
+
+$(document).ready(function() {
+
+// Show questionnary
+var absence = <%- JSON.stringify(absences) %>;
+var documents = <%- JSON.stringify(documents) %>;
+
+for(var i in absence){
+	if (absence[i].ETAT_ABSENCE == "Justifié")
+		var s = '<tr onclick="absence_show(\'' + absence[i].IDENTIFIANT_ABSENCE + '\');" ><td>' + absence[i].PRENOM_ELEVE + '</td><td>' + absence[i].NOM_ELEVE + '</td> <td>' + absence[i].DATE_ABSENCE + '</td> <td>' + absence[i].TYPE_ABSENCE + '</td> <td class="complet">' + absence[i].ETAT_ABSENCE + '</td></tr>';
+	else
+		var s = '<tr onclick="absence_show(\'' + absence[i].IDENTIFIANT_ABSENCE + '\');" ><td>' + absence[i].PRENOM_ELEVE + '</td><td>' + absence[i].NOM_ELEVE + '</td> <td>' + absence[i].DATE_ABSENCE + '</td> <td>' + absence[i].TYPE_ABSENCE + '</td> <td class="imcomplet">' + absence[i].ETAT_ABSENCE + '</td></tr>';
+	$('#abs').append(s);
+}
+
+for(var i in documents){
+	var s = '<tr onclick="document_show(\'' + documents[i].IDENTIFIANT_DOCUMENT + '\');" ><td>' + documents[i].NOM_DOCUMENT + '</td><td>' + documents[i].TAILLE_DOCUMENT + ' Mo</td></tr>';
+	$('#doc').append(s);
+}
+
+	// Ajout d'un questionnaire
+	$('#addQuestionnaire').click(function(){
+		var nom_questionnaire = '';
+		socket.emit('req_add_questionnaire', nom_questionnaire);
+		socket.on('res_add_questionnaire', function(id_quest){
+		document.location.href = './questionnaire/'+ id_quest;
+		});
 	});
-	</script>
+
+
+$('#fastQuestion').click(function(){
+	var questionnaire_name = "Questionnaire rapide";
+	socket.emit('req_fastquestion_add', questionnaire_name);
+	socket.on('res_fastquestion_add', function(id_question){
+		document.location.href=  "./fastquestion/" + id_question;
+	});
+});
+
+$('#FaireAppel').click(function(){
+		document.location.href=  "./appel";
+});
+});
+</script>
 </html>
