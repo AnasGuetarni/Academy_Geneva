@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	    <%- include('./partials/head'); -%>
+	</head>
+
+	<body id="admin">
+		<header>
+	    	<%- include('./partials/header') -%>
+		</header>
+
+		<container class="calendrier">
+			<div class="row">
+		    <div class="col-xs-12">
+		      <div id="bootstrapModalFullCalendar"></div>
+		    </div>
+		  </div>
+
+		   <!-- Modal Code from the Bootstrap examples -->
+		  <div id="fullCalModal" class="modal fade">
+		      <div class="modal-dialog">
+		          <div class="modal-content">
+		              <div class="modal-header">
+		                  <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span> <span class="sr-only">close</span></button>
+		                  <h4 id="modalTitle" class="modal-title"></h4>
+		              </div>
+		              <div id="modalBody" class="modal-body"></div>
+									<!--<div id="modalBody2" class="modal-body"></div>-->
+									<div id="modalBody3" class="modal-body"></div>
+		              <div class="modal-footer">
+		                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		                  <!--<a id="eventUrl" class="btn btn-primary" target="_blank">Event Page</a>-->
+		              </div>
+		          </div>
+		      </div>
+		  </div>
+
+			<div class="boutonContainer">
+				<button class="bouton" type="button" id='addQuestionnaire' >Ajouter un evenement</button>
+			</div>
+		</container>
+
+
+		<container>
+			<div class="listeAbsences">
+				<table>
+					<thead><tr><th>Prenom eleve</th> <th>nom eleve</th><th>date</th><th>type</th><th>état</th></tr></thead>
+					<tbody id="abs"> <!--	Absences	-->	</tbody>
+					</table>
+			</div>
+
+			<div class="boutonContainer">
+				<button class="bouton" type="button" id='addQuestionnaire' >Ajouter une absence</button>
+				<button class="bouton" type="button" id='FaireAppel' >Faire l'appel</button>
+			</div>
+		</container>
+
+		<container>
+			<div class="listeDocuments">
+				<table>
+					<thead><tr><th>Nom du document</th> <th>taille du document</th></tr></thead>
+					<tbody id="doc"> <!--	Documents	-->	</tbody>
+				</table>
+			</div>
+
+			<div class="boutonContainer">
+				<button class="bouton" type="button" id='addQuestionnaire' >Ajouter un document</button>
+			</div>
+		</container>
+
+    <container>
+      <div class="listeNotes">
+        <table>
+          <thead><tr> <th>Eleve</th> <th>Note</th> <th>date</th> </tr></thead>
+          <tbody id="note"> <!--	Notes	-->	</tbody>
+        </table>
+      </div>
+
+			<div class="boutonContainer">
+				<button class="bouton" type="button" id='addQuestionnaire' >Ajouter des notes</button>
+			</div>
+    </container>
+	</body>
+
+	<script>
+
+	// Affichage d'un questionnaire
+function absence_show(id_absence){
+	document.location.href=  "./absence/" + id_absence;
+};
+
+// Affichage d'un questionnaire
+function document_show(id_doc){
+	document.location.href=  "./document/" + id_doc;
+};
+
+// Affichage d'un questionnaire
+function notes_show(id_note){
+	document.location.href=  "./notes";
+};
+
+
+$(document).ready(function() {
+
+// Show questionnary
+var absence = <%- JSON.stringify(absences) %>;
+var documents = <%- JSON.stringify(documents) %>;
+var notes = <%- JSON.stringify(notes) %>;
+var events = <%- JSON.stringify(events) %>;
+
+
+for(var i in absence){
+	if (absence[i].ETAT_ABSENCE == "Justifié")
+		var s = '<tr onclick="absence_show(\'' + absence[i].IDENTIFIANT_ABSENCE + '\');" ><td>' + absence[i].PRENOM_ELEVE + '</td><td>' + absence[i].NOM_ELEVE + '</td> <td>' + absence[i].DATE_ABSENCE + '</td> <td>' + absence[i].TYPE_ABSENCE + '</td> <td class="complet">' + absence[i].ETAT_ABSENCE + '</td></tr>';
+	else
+		var s = '<tr onclick="absence_show(\'' + absence[i].IDENTIFIANT_ABSENCE + '\');" ><td>' + absence[i].PRENOM_ELEVE + '</td><td>' + absence[i].NOM_ELEVE + '</td> <td>' + absence[i].DATE_ABSENCE + '</td> <td>' + absence[i].TYPE_ABSENCE + '</td> <td class="imcomplet">' + absence[i].ETAT_ABSENCE + '</td></tr>';
+	$('#abs').append(s);
+}
+
+for(var i in documents){
+	var s = '<tr onclick="document_show(\'' + documents[i].IDENTIFIANT_DOCUMENT + '\');" ><td>' + documents[i].NOM_DOCUMENT + '</td><td>' + documents[i].TAILLE_DOCUMENT + ' Mo</td></tr>';
+	$('#doc').append(s);
+}
+
+for(var i in notes){
+	var s = '<tr onclick="notes_show();" ><td>' + notes[i].PRENOM_ELEVE + '</td><td>' + notes[i].VALEUR_NOTE + ' </td><td>' + notes[i].DATE_NOTE + '</tr>';
+	$('#note').append(s);
+}
+
+	// Ajout d'un questionnaire
+	$('#addQuestionnaire').click(function(){
+		var nom_questionnaire = '';
+		socket.emit('req_add_questionnaire', nom_questionnaire);
+		socket.on('res_add_questionnaire', function(id_quest){
+		document.location.href = './questionnaire/'+ id_quest;
+		});
+	});
+
+
+$('#fastQuestion').click(function(){
+	var questionnaire_name = "Questionnaire rapide";
+	socket.emit('req_fastquestion_add', questionnaire_name);
+	socket.on('res_fastquestion_add', function(id_question){
+		document.location.href=  "./fastquestion/" + id_question;
+	});
+});
+
+$(function() {
+		$('#bootstrapModalFullCalendar').fullCalendar({
+			events: events,
+			header: {
+					left: '',
+					center: 'prev title next',
+					right: ''
+			},
+			eventClick:  function(event, jsEvent, view) {
+					var year = event.start._i.substring(0,4);
+					var month = event.start._i.substring(6,7);
+					var day = event.start._i.substring(9,10);
+					var hour = event.start._i.substring(11,19);
+					$('#modalTitle').html(event.title);
+					$('#modalBody').html('Commence le '+ day +'/'+ month +'/'+year+' à '+hour);
+					//$('#modalBody2').html('Termine le '+ day +'/'+ month +'/'+year+' à '+hour);
+					$('#modalBody3').html(event.description);
+					$('#fullCalModal').modal();
+					return false;
+			}
+	});
+});
+
+$('#FaireAppel').click(function(){
+		document.location.href=  "./appel";
+});
+
+});
+</script>
+</html>

@@ -35,41 +35,36 @@
 			</div>
 		</container>
 
-		<container class="absences_container">
+		<container>
 			<div class="listeAbsences">
 				<table>
 					<thead><tr><th>Prenom eleve</th> <th>nom eleve</th><th>date</th><th>type</th><th>état</th></tr></thead>
 					<tbody id="abs">	    <!--	Absences	-->	</tbody>
 					</table>
 			</div>
+
+			<div class="boutonContainer">
+				<button class="bouton" type="button" id='addQuestionnaire' >Justifier une absence</button>
+			</div>
 		</container>
 
-		<container class="documents_container">
+		<container>
 			<div class="listeDocuments">
 				<table>
 					<thead><tr><th>Nom du document</th> <th>taille du document</th></tr></thead>
 					<tbody id="doc">	    <!--	Documents	-->	</tbody>
 				</table>
 			</div>
-
-			<div class="boutonContainer">
-				<button class="bouton" type="button" id='addDocument' >Ajouter un document</button>
-			</div>
 		</container>
 
-		<container class="notes_container">
-			<div class="listeNotes">
-				<table>
-					<thead><tr><th>Nom de la matière</th><th>Nombres d'eleves</th></tr></thead>
-					<tbody id="note">	    <!--	Documents	-->	</tbody>
-				</table>
-			</div>
-
-			<div class="boutonContainer">
-				<button class="bouton" type="button" id='addQuestionnaire' >Exporter les résultats</button>
-			</div>
-		</container>
-
+    <container>
+      <div class="listeNotes">
+        <table>
+          <thead><tr><th>Matiere</th> <th>Note</th> <th>date</th> </tr></thead>
+          <tbody id="note"> <!--	Notes	-->	</tbody>
+        </table>
+      </div>
+    </container>
 	</body>
 
 	<script>
@@ -85,60 +80,66 @@ function document_show(id_doc){
 };
 
 // Affichage d'un questionnaire
-function matiere_show(id_mat){
-	document.location.href=  "./matiere/" + id_mat;
+function notes_show(id_note){
+	document.location.href=  "./notes";
 };
+
 
 $(document).ready(function() {
 
 // Show questionnary
 var absence = <%- JSON.stringify(absences) %>;
 var documents = <%- JSON.stringify(documents) %>;
+var notes = <%- JSON.stringify(notes) %>;
 var events = <%- JSON.stringify(events) %>;
-var classes = <%- JSON.stringify(classes) %>;
-
-console.log(classes);
 
 for(var i in absence){
 	if (absence[i].ETAT_ABSENCE == "Justifié")
-		var s = '<tr class="onclickstatement" onclick="absence_show(\'' + absence[i].IDENTIFIANT_ABSENCE + '\');" ><td>' + absence[i].PRENOM_ELEVE + '</td><td>' + absence[i].NOM_ELEVE + '</td> <td>' + absence[i].DATE_ABSENCE + '</td> <td>' + absence[i].TYPE_ABSENCE + '</td> <td class="complet">' + absence[i].ETAT_ABSENCE + '</td></tr>';
+		var s = '<tr onclick="absence_show(\'' + absence[i].IDENTIFIANT_ABSENCE + '\');" ><td>' + absence[i].PRENOM_ELEVE + '</td><td>' + absence[i].NOM_ELEVE + '</td> <td>' + absence[i].DATE_ABSENCE + '</td> <td>' + absence[i].TYPE_ABSENCE + '</td> <td class="complet">' + absence[i].ETAT_ABSENCE + '</td></tr>';
 	else
 		var s = '<tr onclick="absence_show(\'' + absence[i].IDENTIFIANT_ABSENCE + '\');" ><td>' + absence[i].PRENOM_ELEVE + '</td><td>' + absence[i].NOM_ELEVE + '</td> <td>' + absence[i].DATE_ABSENCE + '</td> <td>' + absence[i].TYPE_ABSENCE + '</td> <td class="imcomplet">' + absence[i].ETAT_ABSENCE + '</td></tr>';
 	$('#abs').append(s);
 }
 
 for(var i in documents){
-	var s = '<tr onclick="document_show(\''+ documents[i].IDENTIFIANT_DOCUMENT + '\');"><td>' + documents[i].NOM_DOCUMENT + '</td><td>' + documents[i].TAILLE_DOCUMENT + ' Mo</td></tr>';
+	var s = '<tr onclick="document_show(\'' + documents[i].IDENTIFIANT_DOCUMENT + '\');" ><td>' + documents[i].NOM_DOCUMENT + '</td><td>' + documents[i].TAILLE_DOCUMENT + ' Mo</td></tr>';
 	$('#doc').append(s);
 }
 
-for(var i in classes){
-	var s = '<tr onclick="matiere_show(\'' + classes[i].IDENTIFIANT_MATIERE + '\');" ><td>' + classes[i].NOM_MATIERE + '</td><td>' + classes[i].NOMBRE_ELEVE + ' </td></tr>';
+for(var i in notes){
+	var s = '<tr onclick="notes_show();" ><td>' + notes[i].NOM_MATIERE + '</td><td>' + notes[i].VALEUR_NOTE + ' </td><td>' + notes[i].DATE_NOTE + '</tr>';
 	$('#note').append(s);
 }
 
-	// Ajout d'un evenement
-	$('#addEvent').click(function(){
-		var nom_event = '';
-		socket.emit('req_add_questionnaire', nom_event);
+	// Ajout d'un questionnaire
+	$('#addQuestionnaire').click(function(){
+		var nom_questionnaire = '';
+		socket.emit('req_add_questionnaire', nom_questionnaire);
 		socket.on('res_add_questionnaire', function(id_quest){
-		document.location.href = './add_event';
+		document.location.href = './questionnaire/'+ id_quest;
 		});
 	});
 
 
-$('#addDocument').click(function(){
-		document.location.href=  "./add_document";
+$('#fastQuestion').click(function(){
+	var questionnaire_name = "Questionnaire rapide";
+	socket.emit('req_fastquestion_add', questionnaire_name);
+	socket.on('res_fastquestion_add', function(id_question){
+		document.location.href=  "./fastquestion/" + id_question;
+	});
+});
+
+$('#FaireAppel').click(function(){
+		document.location.href=  "./appel";
 });
 
 $(function() {
 		$('#bootstrapModalFullCalendar').fullCalendar({
-		 	selectable: true,
 			events: events,
 			header: {
-					left: 'prev,next today',
-					center: 'title',
-					right: 'month,agendaWeek,agendaDay'
+					left: '',
+					center: 'prev title next',
+					right: ''
 			},
 			eventClick:  function(event, jsEvent, view) {
 					var year = event.start._i.substring(0,4);
@@ -151,13 +152,9 @@ $(function() {
 					$('#modalBody3').html(event.description);
 					$('#fullCalModal').modal();
 					return false;
-			},
-			select: function(startDate, endDate) {
-				 document.location.href = './add_event/' + startDate.format() + '/' + endDate.format();
-			 }
+			}
 	});
 });
-
 });
 </script>
 </html>

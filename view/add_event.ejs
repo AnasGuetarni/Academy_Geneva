@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	    <%- include('./partials/head'); -%>
+	</head>
+
+	<body id="admin">
+		<header>
+	    	<%- include('./partials/header') -%>
+		</header>
+
+		<div class="btnRetour">
+			<button onclick="location.href='/';">Retour</button>
+		</div>
+
+		<container class="calendrier">
+			<div class="row">
+				<div class="col-xs-12">
+					<div id="bootstrapModalFullCalendar"></div>
+				</div>
+			</div>
+
+			<div id="fullCalModal" class="modal fade">
+					<div class="modal-dialog">
+							<div class="modal-content">
+									<div class="modal-header">
+											<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span> <span class="sr-only">close</span></button>
+											<h4 id="modalTitle" class="modal-title"></h4>
+									</div>
+									<div id="modalBody" class="modal-body"></div>
+									<div id="modalBody3" class="modal-body"></div>
+									<div class="modal-footer">
+											<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+									</div>
+							</div>
+					</div>
+			</div>
+
+		</container>
+
+		<form action="/add_event/<%- startDate %>/<%- endDate %>" method='POST' class="form_event">
+					<div class="container">
+							<div class="group">
+									<input class="textField" name="title" id="title" required>
+									<span class="highlight"></span>
+									<span class="bar"></span>
+									<label>Titre</label>
+							</div>
+							<div class="group">
+									<input class="textField" name="matiere" id="matiere" required>
+									<span class="highlight"></span>
+									<span class="bar"></span>
+									<label>Matière</label>
+							</div>
+							<div class="group">
+									<input class="textField" name="description" id="description" required>
+									<span class="highlight"></span>
+									<span class="bar"></span>
+									<label>Description</label>
+							</div>
+
+							<div class="connexion">
+									<input type="submit" value="Ajouter l'évenement" id="submitRegister" />
+							</div>
+					</div>
+			</form>
+
+	</body>
+
+	<script>
+
+$(document).ready(function() {
+
+// Show questionnary
+var events = <%- JSON.stringify(events) %>;
+
+$(function() {
+		$('#bootstrapModalFullCalendar').fullCalendar({
+		 	selectable: true,
+			events: events,
+			header: {
+					left: 'prev,next today',
+					center: 'title',
+					right: 'month,agendaWeek,agendaDay'
+			},
+			eventClick:  function(event, jsEvent, view) {
+					var year = event.start._i.substring(0,4);
+					var month = event.start._i.substring(6,7);
+					var day = event.start._i.substring(9,10);
+					var hour = event.start._i.substring(11,19);
+					$('#modalTitle').html(event.title);
+					$('#modalBody').html('Commence le '+ day +'/'+ month +'/'+year+' à '+hour);
+					//$('#modalBody2').html('Termine le '+ day +'/'+ month +'/'+year+' à '+hour);
+					$('#modalBody3').html(event.description);
+					$('#fullCalModal').modal();
+					return false;
+			},
+			select: function(startDate, endDate) {
+				 document.location.href = './add_event/' + startDate.format() + '/' + endDate.format();
+			 }
+	});
+});
+
+});
+</script>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	    <%- include('./partials/head'); -%>
+	</head>
+
+	<body id="admin">
+		<header>
+	    	<%- include('./partials/header') -%>
+		</header>
+
+		<div class="btnRetour">
+			<button onclick="location.href='/';">Retour</button>
+		</div>
+
+		<form action='/add_document' method='POST' class="form_event" enctype="multipart/form-data">
+					<div class="container">
+							<div class="group">
+									<input class="textField" name="title" id="title" required>
+									<span class="highlight"></span>
+									<span class="bar"></span>
+									<label>Title</label>
+							</div>
+
+
+              <div class="group">
+                  <input class="textField" name="matiere" id="matiere" required>
+                  <span class="highlight"></span>
+                  <span class="bar"></span>
+                  <label>Matiere</label>
+              </div>
+
+							<div class="group">
+									<input class="textField" type="file" name="file" id="file" required>
+									<span class="highlight"></span>
+									<span class="bar"></span>
+							</div>
+
+							<div class="connexion">
+									<input type="submit" value="Upload" id="submitRegister" />
+							</div>
+					</div>
+			</form>
+
+	</body>
+
+	<script>
+
+$(document).ready(function() {
+
+});
+</script>
+</html>

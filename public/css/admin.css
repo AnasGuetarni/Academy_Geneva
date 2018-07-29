@@ -6,6 +6,52 @@
 	width: 100%;
 }
 
+.form_event {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	top: 22%;
+	left: 32%;
+}
+
+#admin .absences_container{
+	position: absolute;
+	display: block;
+	padding: 30px;
+	top: 12%;
+	width: 45%;
+	height: 32%;
+	margin-left: 52%;
+}
+
+#admin .documents_container{
+	position: absolute;
+	display: block;
+	padding: 30px;
+	top: 42%;
+	width: 10%;
+	height: 37%;
+	margin-left: 53.5%;
+}
+
+#admin .notes_container{
+	position: absolute;
+	display: block;
+	padding: 30px;
+	top: 65%;
+	width: 12%;
+	height: 22%;
+	margin-left: 54%;
+}
+
+#admin .calendrier {
+	position: absolute;
+	display: block;
+	padding: 30px;
+	top: 100px;
+	width: 50%;
+}
+
 #admin .listeAbsences {
 	width: 800px;
 	margin: auto;
@@ -14,8 +60,8 @@
 	border-radius: 1px;
 	box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
   overflow-y: scroll;
-	margin-right: 6%;
-	margin-top: 5%;
+	margin-right: 5%;
+	margin-top: 3%;
 }
 
 #admin .listeDocuments {
@@ -26,8 +72,20 @@
 	border-radius: 1px;
 	box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
   overflow-y: scroll;
-	margin-top: 25%;
-	margin-right: 6%;
+	margin-top: 18%;
+	margin-right: 5%;
+}
+
+#admin .listeNotes {
+	width: 800px;
+	margin: auto;
+	min-height: 100px;
+	background-color: #FFF;
+	border-radius: 1px;
+	box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  overflow-y: scroll;
+	margin-top: 32%;
+	margin-right: 5%;
 }
 
 #admin table {
@@ -35,12 +93,12 @@
 	border-collapse: collapse;
 }
 
-#admin tables {
-	width: 100%;
-	border-collapse: collapse;
+#admin tr {
+	vertical-align: middle;
+	text-align: center;
 }
 
-#admin tr {
+#admin .doc_down {
 	vertical-align: middle;
 	text-align: center;
 }
@@ -57,6 +115,10 @@
     background-color: #F7F7F7;
 }
 
+#admin .doc_down:nth-child(even) {
+    background-color: #F7F7F7;
+}
+
 #admin td {
 	border-right: 1px solid #DFDFDF;
 	border-left: 1px solid #DFDFDF;
@@ -67,13 +129,23 @@
 	transition: all .4s;
 }
 
+#admin tbody .doc_down {
+	cursor: pointer;
+	transition: all .4s;
+}
+/*
 #admin tbody tr:hover {
 	background-color: #DFDFDF;
 	transition: all .4s;
 	box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
 }
-
+*/
 #admin tr {
+	height: 50px;
+	width: 100%;
+}
+
+#admin .doc_down {
 	height: 50px;
 	width: 100%;
 }

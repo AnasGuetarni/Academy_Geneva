@@ -1,4 +1,4 @@
-global.PORT = 8080;
+global.PORT = 5250;
 
 /* Importation modules */
 var express = require('express');
@@ -32,6 +32,7 @@ app.use(session({
 
 var cal = new calendar.Calendar(calendar.SUNDAY);
 var yearCalendar = cal.yeardayscalendar(2004);
+
 
 /* Importation des modules externes */
 console.log("\nLoading custom modules:".blue);

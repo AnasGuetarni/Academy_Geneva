@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	    <%- include('./partials/head'); -%>
+	</head>
+
+	<body id="admin">
+		<header>
+	    	<%- include('./partials/header') -%>
+		</header>
+
+		<container>
+      <div class="btnRetour">
+        <button type="button" onclick="document.location.href='../../admin'">Retour</button>
+      </div>
+
+			<div class="listeAbsences">
+				<table>
+					<thead><tr><th>Prenom élève</th> <th>Nom élève</th><th>Date absence</th><th>Nom matière</th><th>Type Absence</th><th>Etat absence</th></tr></thead>
+					<tbody id="abs">	    <!--	Absences	-->	</tbody>
+					</table>
+			</div>
+
+			<form action="/absence/<%- id %>" method='POST' class="form_event" enctype="multipart/form-data">
+				<div class="group">
+						<input class="textField" type="file" name="file" id="file" required>
+						<span class="highlight"></span>
+						<span class="bar"></span>
+				</div>
+				<div class="container">
+					<div class="connexion">
+							<input type="submit" value="Upload" id="submitRegister" />
+					</div>
+				</div>
+			</form>
+
+      <div class="boutonContainer">
+        <button class="bouton" type="button" id='addDocument' >Ajouter un document justificatif</button>
+      </div>
+		</container>
+
+
+	</body>
+
+	<script>
+
+$(document).ready(function() {
+
+// Show questionnary
+var absences = <%- JSON.stringify(absences) %>;
+
+console.log(absences);
+
+for(var i in absences){
+  if (absences[i].ETAT_ABSENCE == "Justifié")
+	 var s = '<tr><td>' + absences[i].PRENOM_ELEVE + '</td><td>' + absences[i].NOM_ELEVE + '</td> <td>' + absences[i].DATE_ABSENCE + '</td><td>' + absences[i].NOM_MATIERE + '</td><td>' + absences[i].TYPE_ABSENCE + '</td><td class="complet">' + absences[i].ETAT_ABSENCE + '</td></tr>';
+  else
+    var s = '<tr><td>' + absences[i].PRENOM_ELEVE + '</td><td>' + absences[i].NOM_ELEVE + '</td> <td>' + absences[i].DATE_ABSENCE + '</td><td>' + absences[i].NOM_MATIERE + '</td><td>' + absences[i].TYPE_ABSENCE + '</td><td class="imcomplet">' + absences[i].ETAT_ABSENCE + '</td></tr>';
+
+  $('#abs').append(s);
+}
+
+$("#addDocument").click(function(){
+	document.location.href = '/add_document';
+});
+
+$("#exportDataMatiere").click(function(){
+  /*
+  socket.emit('req_export_data', ID_QUESTIONNAIRE, idSession);
+  socket.on('res_export_data', function(data) {
+    var dataQuestions = new Array();
+    var dataEleve = new Array();
+    var datajsonexport = new Array();
+    for (var i in data) {
+      if (dataQuestions.indexOf(data[i].Question) == -1)
+        dataQuestions.push(data[i].Question);
+    }
+    for (var i in data) {
+      if (dataEleve.indexOf(data[i].ID_ELEVE) == -1)
+        dataEleve.push(data[i].ID_ELEVE);
+    }
+    for(var i in dataEleve) {
+      var obje = new Object();
+      for(var j in dataQuestions) {
+        obje[dataQuestions[j]] = "";
+      }
+      obje["Telephone"] = "";
+      obje["name"] = ""; // NOM ELEVE
+      obje["ID"] = dataEleve[i];
+      datajsonexport.push(obje);
+    }
+
+    for(i in datajsonexport) {
+      for(j in data) {
+        if(datajsonexport[i].ID == data[j].ID_ELEVE) {
+          var Questions = data[j].Question;
+
+          datajsonexport[i][Questions] = data[j].Reponse;
+          datajsonexport[i]["Telephone"] = data[j].Numtel;
+          data[j].NOM_ELEVE == null ? datajsonexport[i]["name"] = "" : datajsonexport[i]["name"] = data[j].NOM_ELEVE; // NOM ELEVE
+        }
+      }
+    }
+    console.log(JSONToCSVConvertor(JSON.stringify(datajsonexport),"ExportAmphiquizz",true)); // Lance le téléchargement
+  });
+  */
+});
+
+});
+</script>
+</html>
