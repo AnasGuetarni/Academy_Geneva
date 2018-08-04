@@ -35,20 +35,16 @@
 			</div>
 		</container>
 
-		<container>
+		<container class="absences_container">
 			<div class="listeAbsences">
 				<table>
 					<thead><tr><th>Prenom eleve</th> <th>nom eleve</th><th>date</th><th>type</th><th>état</th></tr></thead>
 					<tbody id="abs">	    <!--	Absences	-->	</tbody>
 					</table>
 			</div>
-
-			<div class="boutonContainer">
-				<button class="bouton" type="button" id='addQuestionnaire' >Justifier une absence</button>
-			</div>
 		</container>
 
-		<container>
+		<container class="documents_container">
 			<div class="listeDocuments">
 				<table>
 					<thead><tr><th>Nom du document</th> <th>taille du document</th></tr></thead>
@@ -57,7 +53,7 @@
 			</div>
 		</container>
 
-    <container>
+    <container class="notes_container">
       <div class="listeNotes">
         <table>
           <thead><tr><th>Matiere</th> <th>Note</th> <th>date</th> </tr></thead>
@@ -77,11 +73,6 @@ function absence_show(id_absence){
 // Affichage d'un questionnaire
 function document_show(id_doc){
 	document.location.href=  "./document/" + id_doc;
-};
-
-// Affichage d'un questionnaire
-function notes_show(id_note){
-	document.location.href=  "./notes";
 };
 
 
@@ -107,7 +98,7 @@ for(var i in documents){
 }
 
 for(var i in notes){
-	var s = '<tr onclick="notes_show();" ><td>' + notes[i].NOM_MATIERE + '</td><td>' + notes[i].VALEUR_NOTE + ' </td><td>' + notes[i].DATE_NOTE + '</tr>';
+	var s = '<tr><td>' + notes[i].NOM_MATIERE + '</td><td>' + notes[i].VALEUR_NOTE + ' </td><td>' + notes[i].DATE_NOTE + '</tr>';
 	$('#note').append(s);
 }
 
@@ -137,9 +128,9 @@ $(function() {
 		$('#bootstrapModalFullCalendar').fullCalendar({
 			events: events,
 			header: {
-					left: '',
-					center: 'prev title next',
-					right: ''
+				left: 'prev,next today',
+				center: 'title',
+				right: 'month,agendaWeek,agendaDay'
 			},
 			eventClick:  function(event, jsEvent, view) {
 					var year = event.start._i.substring(0,4);

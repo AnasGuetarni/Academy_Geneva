@@ -11,7 +11,7 @@
 
 		<container>
       <div class="btnRetour">
-        <button type="button" onclick="document.location.href='../../admin'">Retour</button>
+        <button type="button" id="retour">Retour</button>
       </div>
 
 			<div class="listeAbsences">
@@ -48,8 +48,9 @@ $(document).ready(function() {
 
 // Show questionnary
 var absences = <%- JSON.stringify(absences) %>;
+var log = <%- JSON.stringify(log) %>;
 
-console.log(absences);
+console.log(log);
 
 for(var i in absences){
   if (absences[i].ETAT_ABSENCE == "Justifié")
@@ -62,6 +63,10 @@ for(var i in absences){
 
 $("#addDocument").click(function(){
 	document.location.href = '/add_document';
+});
+
+$("#retour").click(function(){
+	document.location.href = './../'+log;
 });
 
 $("#exportDataMatiere").click(function(){
