@@ -18,37 +18,48 @@
 	position: absolute;
 	display: block;
 	padding: 30px;
-	top: 12%;
+	top: 14%;
 	width: 45%;
 	height: 32%;
-	margin-left: 52%;
+	margin-left: 49%;
 }
 
 #admin .documents_container{
 	position: absolute;
 	display: block;
 	padding: 30px;
-	top: 42%;
+	top: 40%;
 	width: 10%;
 	height: 37%;
-	margin-left: 53.5%;
+	margin-left: 49%;
 }
+
+#admin .add_event_form {
+	position: absolute;
+	display: block;
+	padding: 30px;
+	top: 30%;
+	width: 10%;
+	height: 37%;
+	margin-left: 49%;
+}
+
 
 #admin .notes_container{
 	position: absolute;
 	display: block;
 	padding: 30px;
-	top: 65%;
+	top: 69%;
 	width: 12%;
 	height: 22%;
-	margin-left: 54%;
+	margin-left: 49%;
 }
 
 #admin .calendrier {
 	position: absolute;
 	display: block;
 	padding: 30px;
-	top: 100px;
+	top: 17%;
 	width: 50%;
 }
 
@@ -62,6 +73,18 @@
   overflow-y: scroll;
 	margin-right: 5%;
 	margin-top: 3%;
+}
+
+#admin .listeDetails {
+	width: 800px;
+	margin: auto;
+	min-height: 100px;
+	background-color: #FFF;
+	border-radius: 1px;
+	box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  overflow-y: scroll;
+	margin-right: 25%;
+	margin-top: 5%;
 }
 
 #admin .listeDocuments {
@@ -104,7 +127,7 @@
 }
 
 #admin th {
-	background-color: #B8B8B8;
+	background-color: #4a69bd;
 	color: #FFF;
 	text-transform: uppercase;
 	border-right: 1px solid #DFDFDF;

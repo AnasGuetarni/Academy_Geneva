@@ -9,11 +9,13 @@
 	    	<%- include('./partials/header') -%>
 		</header>
 
-		<div class="btnRetour">
-			<button onclick="location.href='/';">Retour</button>
-		</div>
+
 
 		<container class="calendrier">
+			<div class="btnRetour">
+				<button type="button" id="retour">Retour</button>
+			</div>
+
 			<div class="row">
 				<div class="col-xs-12">
 					<div id="bootstrapModalFullCalendar"></div>
@@ -38,6 +40,7 @@
 
 		</container>
 
+<container class="add_event_form">
 		<form action="/add_event/<%- startDate %>/<%- endDate %>" method='POST' class="form_event">
 					<div class="container">
 							<div class="group">
@@ -64,6 +67,7 @@
 							</div>
 					</div>
 			</form>
+</container>
 
 	</body>
 
@@ -73,6 +77,11 @@ $(document).ready(function() {
 
 // Show questionnary
 var events = <%- JSON.stringify(events) %>;
+var log = <%- JSON.stringify(log) %>;
+
+	$("#retour").click(function(){
+		document.location.href = './../../'+log;
+	});
 
 $(function() {
 		$('#bootstrapModalFullCalendar').fullCalendar({

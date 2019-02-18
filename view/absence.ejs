@@ -14,7 +14,7 @@
         <button type="button" id="retour">Retour</button>
       </div>
 
-			<div class="listeAbsences">
+			<div class="listeDetails">
 				<table>
 					<thead><tr><th>Prenom élève</th> <th>Nom élève</th><th>Date absence</th><th>Nom matière</th><th>Type Absence</th><th>Etat absence</th></tr></thead>
 					<tbody id="abs">	    <!--	Absences	-->	</tbody>
@@ -22,21 +22,18 @@
 			</div>
 
 			<form action="/absence/<%- id %>" method='POST' class="form_event" enctype="multipart/form-data">
-				<div class="group">
-						<input class="textField" type="file" name="file" id="file" required>
-						<span class="highlight"></span>
-						<span class="bar"></span>
-				</div>
-				<div class="container">
+				<div class="container"  style="margin-left: -10%; margin-top: 15%;">
+					<div class="group">
+							<input class="textField" type="file" name="file" id="file" required>
+							<span class="highlight"></span>
+							<span class="bar"></span>
+					</div>
 					<div class="connexion">
 							<input type="submit" value="Upload" id="submitRegister" />
 					</div>
 				</div>
 			</form>
 
-      <div class="boutonContainer">
-        <button class="bouton" type="button" id='addDocument' >Ajouter un document justificatif</button>
-      </div>
 		</container>
 
 
@@ -50,7 +47,7 @@ $(document).ready(function() {
 var absences = <%- JSON.stringify(absences) %>;
 var log = <%- JSON.stringify(log) %>;
 
-console.log(log);
+console.log(absences);
 
 for(var i in absences){
   if (absences[i].ETAT_ABSENCE == "Justifié")

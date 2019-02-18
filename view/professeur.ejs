@@ -25,11 +25,9 @@
 		                  <h4 id="modalTitle" class="modal-title"></h4>
 		              </div>
 		              <div id="modalBody" class="modal-body"></div>
-									<!--<div id="modalBody2" class="modal-body"></div>-->
 									<div id="modalBody3" class="modal-body"></div>
 		              <div class="modal-footer">
 		                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-		                  <!--<a id="eventUrl" class="btn btn-primary" target="_blank">Event Page</a>-->
 		              </div>
 		          </div>
 		      </div>
@@ -37,7 +35,7 @@
 		</container>
 
 
-		<container>
+		<container class="absences_container">
 			<div class="listeAbsences">
 				<table>
 					<thead><tr><th>Prenom eleve</th> <th>nom eleve</th><th>date</th><th>type</th><th>état</th></tr></thead>
@@ -51,7 +49,7 @@
 			</div>
 		</container>
 
-		<container>
+		<container class="documents_container">
 			<div class="listeDocuments">
 				<table>
 					<thead><tr><th>Nom du document</th> <th>taille du document</th></tr></thead>
@@ -60,39 +58,32 @@
 			</div>
 
 			<div class="boutonContainer">
-				<button class="bouton" type="button" id='addQuestionnaire' >Ajouter un document</button>
+				<button class="bouton" type="button" id='addDocument' >Ajouter un document</button>
 			</div>
 		</container>
 
-    <container>
-      <div class="listeNotes">
-        <table>
-          <thead><tr> <th>Eleve</th> <th>Note</th> <th>date</th> </tr></thead>
-          <tbody id="note"> <!--	Notes	-->	</tbody>
-        </table>
-      </div>
-
-			<div class="boutonContainer">
-				<button class="bouton" type="button" id='addQuestionnaire' >Ajouter des notes</button>
+		<container class="notes_container">
+			<div class="listeNotes">
+				<table>
+					<thead><tr><th>Nom de la matière</th><th>Nombres d'eleves</th></tr></thead>
+					<tbody id="note">	    <!--	Documents	-->	</tbody>
+				</table>
 			</div>
-    </container>
+		</container>
 	</body>
 
 	<script>
 
-	// Affichage d'un questionnaire
 function absence_show(id_absence){
 	document.location.href=  "./absence/" + id_absence;
 };
 
-// Affichage d'un questionnaire
 function document_show(id_doc){
 	document.location.href=  "./document/" + id_doc;
 };
 
-// Affichage d'un questionnaire
-function notes_show(id_note){
-	document.location.href=  "./notes";
+function matiere_show(id_mat){
+	document.location.href=  "./matiere/" + id_mat;
 };
 
 
@@ -101,8 +92,11 @@ $(document).ready(function() {
 // Show questionnary
 var absence = <%- JSON.stringify(absences) %>;
 var documents = <%- JSON.stringify(documents) %>;
-var notes = <%- JSON.stringify(notes) %>;
+var classes = <%- JSON.stringify(classes) %>;
 var events = <%- JSON.stringify(events) %>;
+
+console.log(classes);
+console.log(events);
 
 
 for(var i in absence){
@@ -118,8 +112,8 @@ for(var i in documents){
 	$('#doc').append(s);
 }
 
-for(var i in notes){
-	var s = '<tr onclick="notes_show();" ><td>' + notes[i].PRENOM_ELEVE + '</td><td>' + notes[i].VALEUR_NOTE + ' </td><td>' + notes[i].DATE_NOTE + '</tr>';
+for(var i in matieres){
+	var s = '<tr onclick="matiere_show(\'' + matieres[i].IDENTIFIANT_MATIERE + '\');" ><td>' + matieres[i].NOM_MATIERE + '</td><td>' + matieres[i].NOMBRE_ELEVE + ' </td></tr>';
 	$('#note').append(s);
 }
 
@@ -141,13 +135,18 @@ $('#fastQuestion').click(function(){
 	});
 });
 
+$('#addDocument').click(function(){
+		document.location.href=  "./add_document";
+});
+
 $(function() {
 		$('#bootstrapModalFullCalendar').fullCalendar({
+		 	selectable: true,
 			events: events,
 			header: {
-					left: '',
-					center: 'prev title next',
-					right: ''
+					left: 'prev,next today',
+					center: 'title',
+					right: 'month,agendaWeek,agendaDay'
 			},
 			eventClick:  function(event, jsEvent, view) {
 					var year = event.start._i.substring(0,4);
@@ -160,7 +159,10 @@ $(function() {
 					$('#modalBody3').html(event.description);
 					$('#fullCalModal').modal();
 					return false;
-			}
+			},
+			select: function(startDate, endDate) {
+				 document.location.href = './add_event/' + startDate.format() + '/' + endDate.format();
+			 }
 	});
 });
 

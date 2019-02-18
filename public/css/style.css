@@ -6,3 +6,8 @@
 @import "../../css/login.css";
 @import "../../css/register.css";
 @import "../../css/404.css";
+
+#calendar {
+  max-width: 900px;
+  margin: 40px auto;
+}

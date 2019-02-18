@@ -1,0 +1,22 @@
+Bato: Jeu de Bataille navale
+
+But: 
+Développement d'un jeu "bataille naval" sur browser à l'aide de boostrap et javascript (communication sockets) ou deux joueurs pourraient s'affronter en direct sur deux ordinateurs différents. 
+En fonction de la vitesse de progression de notre projet, nous avons également pensé à rajouter une "gamification" à l'aide de niveau ou de classement total ( une victoire rapportant un nombre de point différent d'une défaite).
+
+
+Interface de connexion et d'inscription (Bootstrap/HTML/NodeJs/Express/ExpressSession/Socket.io)
+Gamification (Base de donnée Mysql)
+Interface de jeu (NodeJs/Express/ExpressSession)
+Système de classement pour les utilisateur, et système d'xp en fonction des parties (gagné ou perdu)
+
+Tâches:
+Anas:
+-> Connexion/Inscription 
+-> Système de classement 
+-> Système d'xp
+
+Melvin:
+-> BDD
+-> Interface de jeu
+-> Design Bootstrap

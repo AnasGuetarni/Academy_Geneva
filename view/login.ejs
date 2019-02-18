@@ -4,27 +4,46 @@
         <%- include('./partials/head'); %>
     </head>
 
-    <body id="login">
-        <img src="img/logo_acad.png" alt="Logo" class="logo">
-        <form action='/login' method='POST'>
-            <div class="group">
-                <input class="textField" name="login" id="identifiant" onBlur="checkExistLogin();" required>
-                <span class="highlight"></span>
-                <span class="bar"></span>
-                <label>Identifiant de connexion</label>
-            </div>
-
-            <div class="group">
-                <input class="textField" name="mdp" type="password" id="mdp" required>
-                <span class="highlight"></span>
-                <span class="bar"></span>
-                <label>Mot de passe</label>
-            </div>
-
-            <div class="connexion">
-                <input type="submit" value="Connexion" />
-            </div>
-        </form>
+    <body class="h-100">
+        <div class="main-content-container container-fluid px-4">
+        <div class="row" style="margin-left: 38%;margin-top: 10%;">
+        <div class="card card-small mb-4 text-center">
+          <div class="card-header border-bottom">
+            <img src="img/logo_acad.png" alt="Logo" class="logo">
+          </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item px-3">
+              <form action='/login' method='POST'>
+                <!-- Seamless Input Groups -->
+                <strong class="text-muted d-block mb-2">Connexion</strong>
+                <div class="input-group mb-3">
+                  <div class="input-group input-group-seamless">
+                    <span class="input-group-prepend">
+                      <span class="input-group-text">
+                        <i class="material-icons">person</i>
+                      </span>
+                    </span>
+                    <input type="text" class="form-control" name="login" id="identifiant" placeholder="Username" onBlur="checkExistLogin();" required> </div>
+                </div>
+                <div class="input-group mb-3">
+                  <div class="input-group input-group-seamless">
+                    <input type="password" class="form-control" name="mdp" id="mdp" placeholder="Password" required>
+                    <span class="input-group-append">
+                      <span class="input-group-text">
+                        <i class="material-icons">lock</i>
+                      </span>
+                    </span>
+                  </div>
+                </div>
+                <div class="input-group mb-3 center">
+                  <button type="submit" class="mb-2 btn btn-primary mr-2 center" style="margin-left:35%;">Connexion</button>
+                </div>
+              </form>
+            </li>
+          </ul>
+        </div>
+      </div>
+  </div>
     </body>
 </html>
 

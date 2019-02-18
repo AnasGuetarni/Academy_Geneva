@@ -1,0 +1,27 @@
+{
+  "name": "academy_geneva",
+  "version": "1.0.0",
+  "description": "Intranet permettant aux eleves de voir leurs notes en ligne, et a faciliter la tache aux enseignants et employes de l'entreprise Academy Geneva",
+  "main": "app.js",
+  "scripts": {
+    "test": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AnasGuetarni/Academy_Geneva.git"
+  },
+  "keywords": [
+    "site",
+    "plateforme",
+    "notes",
+    "absences",
+    "eleves",
+    "professeur"
+  ],
+  "author": "Anas Guetarni",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AnasGuetarni/Academy_Geneva/issues"
+  },
+  "homepage": "https://github.com/AnasGuetarni/Academy_Geneva#readme"
+}

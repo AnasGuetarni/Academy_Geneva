@@ -1,9 +1,11 @@
 <!-- head.ejs -->
 
 <meta charset="UTF-8">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
 <title><%- title %></title>
-<link rel="stylesheet" type="text/css" href="../../css/style.css"/>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.0.1/fullcalendar.min.css" integrity="sha256-pH0lyAcRhQLVzOw5P7hFRvDjjckRCDplCbnDulA5CkI=" crossorigin="anonymous" />
+<meta name="description" content="A high-quality &amp; free Bootstrap admin dashboard template pack that comes with lots of templates and components.">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- <link rel="stylesheet" type="text/css" href="../../css/style.css"/> -->
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <script src="../../js/jquery.js"></script>
 <script src="../../js/jquery-ui.js"></script>
@@ -12,12 +14,18 @@
 <script src="../../js/functions.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.1/moment.min.js" integrity="sha256-4PIvl58L9q7iwjT654TQJM+C/acEyoG738iL8B8nhXg=" crossorigin="anonymous"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.0.1/fullcalendar.min.js" integrity="sha256-jrluEatvHor02eNo60ryUPAhGRaX0Vqw0vF9yZOQYAI=" crossorigin="anonymous"></script>
-
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.0/fullcalendar.min.js" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.0/fullcalendar.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.0/fullcalendar.print.css">
+<link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+<link rel="stylesheet" id="main-stylesheet" data-version="1.1.0" href="../../css/shards-dashboards.1.1.0.min.css">
+<link rel="stylesheet" href="../../css/extras.1.1.0.min.css">
 
 <script>
 	// Connection SOCKET
-	var socket = io.connect('http://localhost:8080');
+	var socket = io.connect('http://localhost:5250');
 
     function checkExistLogin()
     {
@@ -25,6 +33,11 @@
         if ( identifiant != ""){
             socket.emit('req_exist_login', identifiant);
         }
+    }
+
+    function jsUcfirst(string)
+    {
+        return string.charAt(0).toUpperCase() + string.slice(1);
     }
 
 </script>
