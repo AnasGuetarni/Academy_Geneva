@@ -127,11 +127,6 @@
           <!-- / .main-navbar -->
           <div class="main-content-container container-fluid px-4">
           <!-- End Small Stats Blocks -->
-          <!-- <div class="row">
-            <div>
-              <div class="bg-primary ml-3 mb-3 rounded text-white text-center p-3" style="box-shadow: inset 0 0 5px rgba(0,0,0,.2);" onclick="add_formation()">Ajouter une formation</div>
-            </div>
-          </div> -->
 
 
             <div class="row" id="list_students">
@@ -177,9 +172,11 @@
   var login = <%- JSON.stringify(login) %>;
   var formations = <%- JSON.stringify(formations) %>;
 
+  console.log(formations);
+
   $(document).ready(function() {
     for (var i in formations){
-      $("#list_formation").append(' \
+      $("#list_students").append(' \
       <div class="col-lg-3 col-md-6 col-sm-12 mb-4"> \
       <div class="card card-small card-post card-post--1"> \
       <div class="card-post__image" style="background-image: url(\'../img/' + formations[i].image_formation + '\');"> \

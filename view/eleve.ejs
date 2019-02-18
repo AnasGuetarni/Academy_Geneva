@@ -1,151 +1,234 @@
-<!DOCTYPE html>
-<html>
-	<head>
-	    <%- include('./partials/head'); -%>
-	</head>
+<!doctype html>
+<html class="no-js h-100" lang="en">
+  <head>
+    <%- include('./partials/head'); -%>
+  </head>
+  <body class="h-100">
+    <div class="container-fluid">
+      <div class="row">
+        <!-- Main Sidebar -->
+        <aside class="main-sidebar col-12 col-md-3 col-lg-2 px-0">
+          <div class="main-navbar">
+            <nav class="navbar align-items-stretch navbar-light bg-white flex-md-nowrap border-bottom p-0">
+              <a class="navbar-brand w-100 mr-0" href="#" style="line-height: 25px;">
+                <div class="d-table m-auto">
+                  <img id="main-logo" class="d-inline-block align-top mr-1" style="max-width: 50px;" src="img/logo_acad.png" alt="AG Dashboard">
+                </div>
+              </a>
+              <a class="toggle-sidebar d-sm-inline d-md-none d-lg-none">
+                <i class="material-icons">&#xE5C4;</i>
+              </a>
+            </nav>
+          </div>
+          <div class="nav-wrapper">
+            <ul class="nav flex-column">
+              <li class="nav-item">
+                <a class="nav-link" onclick="home()">
+                  <i class="material-icons">account_circle</i>
+                  <span>Dashboard</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link " onclick="formations()">
+                  <i class="material-icons">import_contacts</i>
+                  <span>Formations</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link " onclick="absences()">
+                  <i class="material-icons">contacts</i>
+                  <span>Absences</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link " onclick="notes()">
+                  <i class="material-icons">assignment</i>
+                  <span>Notes</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link " onclick="documents_()">
+                  <i class="material-icons">attachment</i>
+                  <span>Documents</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link " onclick="settings()">
+                  <i class="material-icons">settings</i>
+                  <span>Settings</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </aside>
+        <!-- End Main Sidebar -->
+        <main class="main-content col-lg-10 col-md-9 col-sm-12 p-0 offset-lg-2 offset-md-3" style="margin-top: -6%;">
+          <div class="main-navbar sticky-top bg-white">
+            <!-- Main Navbar -->
+            <nav class="navbar align-items-stretch navbar-light flex-md-nowrap p-0">
+              <form action="/search" class="main-navbar__search w-100 d-none d-md-flex d-lg-flex" method="post">
+                <div class="input-group input-group-seamless ml-3">
+                  <div class="input-group-prepend">
+                    <div class="input-group-text">
+                      <i class="fas fa-search"></i>
+                    </div>
+                  </div>
+                  <input class="navbar-search form-control" type="text" placeholder="Rechercher un eleve..." aria-label="result" id="result" name="result"> </div>
+              </form>
+              <ul class="navbar-nav border-left flex-row ">
+                <li class="nav-item border-right dropdown notifications">
+                  <a class="nav-link nav-link-icon text-center" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <div class="nav-link-icon__wrapper">
+                      <i class="material-icons">&#xE7F4;</i>
+                      <span class="badge badge-pill badge-danger">2</span>
+                    </div>
+                  </a>
+                  <div class="dropdown-menu dropdown-menu-small" aria-labelledby="dropdownMenuLink">
+                    <a class="dropdown-item" href="#">
+                      <div class="notification__icon-wrapper">
+                        <div class="notification__icon">
+                          <i class="material-icons">&#xE6E1;</i>
+                        </div>
+                      </div>
+                      <div class="notification__content">
+                        <span class="notification__category">Analytics</span>
+                        <p>Your website’s active users count increased by
+                          <span class="text-success text-semibold">28%</span> in the last week. Great job!</p>
+                      </div>
+                    </a>
+                    <a class="dropdown-item" href="#">
+                      <div class="notification__icon-wrapper">
+                        <div class="notification__icon">
+                          <i class="material-icons">&#xE8D1;</i>
+                        </div>
+                      </div>
+                      <div class="notification__content">
+                        <span class="notification__category">Sales</span>
+                        <p>Last week your store’s sales count decreased by
+                          <span class="text-danger text-semibold">5.52%</span>. It could have been worse!</p>
+                      </div>
+                    </a>
+                    <a class="dropdown-item notification__all text-center" href="#"> View all Notifications </a>
+                  </div>
+                </li>
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle text-nowrap px-3" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                    <img class="user-avatar rounded-circle mr-2" src="img/avatars/lsd.png" alt="User Avatar">
+                    <span class="d-none d-md-inline-block"><%- login -%></span>
+                  </a>
+                  <div class="dropdown-menu dropdown-menu-small">
+                    <a class="dropdown-item text-danger" onclick="logout()">
+                      <i class="material-icons text-danger">&#xE879;</i> Logout </a>
+                  </div>
+                </li>
+              </ul>
+            </nav>
+          </div>
+          <!-- / .main-navbar -->
+          <div class="alert alert-success alert-dismissible fade show mb-0" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">×</span>
+            </button>
+            <i class="fa fa-check mx-2"></i>
+            <strong>Success!</strong> Your profile has been updated! </div>
+          <div class="main-content-container container-fluid px-4">
+            <!-- Page Header -->
+            <div class="page-header row no-gutters py-4">
+              <div class="col-12 col-sm-4 text-center text-sm-left mb-0">
+                <span class="text-uppercase page-subtitle">Vue d'ensemble</span>
+                <h3 class="page-title">Profil utilisateur</h3>
+              </div>
+            </div>
+            <!-- End Page Header -->
+            <!-- Default Light Table -->
+            <div class="row">
+              <div class="col-lg-4">
+                <div class="card card-small mb-4 pt-3 mt-3">
+                  <div class="card-header border-bottom text-center" id="info_card_user">
+                    <div class="mb-3 mx-auto">
+                      <img class="rounded-circle" src="img/avatars/1.jpg" alt="User Avatar" width="110">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-8">
+                <div class="card card-small mb-4">
+                  <div class="card-header border-bottom">
+                    <h6 class="m-0">Détails</h6>
+                  </div>
+                  <ul class="list-group list-group-flush">
+                    <li class="list-group-item p-3">
+                      <div class="row">
+                        <div class="col">
+                          <form>
+                            <div class="form-row">
+                              <div class="form-group col-md-6" id="first_name_user">
+                                <label for="feFirstName">Prénom</label> </div>
+                              <div class="form-group col-md-6" id="last_name_user">
+                                <label for="feLastName">Nom</label> </div>
+                            </div>
+                            <div class="form-row">
+                              <div class="form-group col-md-6">
+                                <label for="fePassword">Password</label>
+                                <input type="password" class="form-control" id="fePassword" placeholder="Password"> </div>
+                                <div class="form-group col-md-6">
+                                  <label for="fePasswordConfirm">Confirm password</label>
+                                  <input type="password" class="form-control" id="fePasswordConfirm" placeholder="Password"> </div>
+                            </div>
+                            <button type="submit" class="btn btn-accent">Modifier</button>
+                          </form>
+                        </div>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <!-- End Default Light Table -->
+          </div>
 
-	<body id="admin">
-		<header>
-	    	<%- include('./partials/header') -%>
-		</header>
-
-		<container class="calendrier">
-			<div class="row">
-				<div class="col-xs-12">
-					<div id="bootstrapModalFullCalendar"></div>
-				</div>
-			</div>
-
-			 <!-- Modal Code from the Bootstrap examples -->
-			<div id="fullCalModal" class="modal fade">
-					<div class="modal-dialog">
-							<div class="modal-content">
-									<div class="modal-header">
-											<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span> <span class="sr-only">close</span></button>
-											<h4 id="modalTitle" class="modal-title"></h4>
-									</div>
-									<div id="modalBody" class="modal-body"></div>
-									<!--<div id="modalBody2" class="modal-body"></div>-->
-									<div id="modalBody3" class="modal-body"></div>
-									<div class="modal-footer">
-											<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-									</div>
-							</div>
-					</div>
-			</div>
-		</container>
-
-		<container class="absences_container">
-			<div class="listeAbsences">
-				<table>
-					<thead><tr><th>Prenom eleve</th> <th>nom eleve</th><th>date</th><th>type</th><th>état</th></tr></thead>
-					<tbody id="abs">	    <!--	Absences	-->	</tbody>
-					</table>
-			</div>
-		</container>
-
-		<container class="documents_container">
-			<div class="listeDocuments">
-				<table>
-					<thead><tr><th>Nom du document</th> <th>taille du document</th></tr></thead>
-					<tbody id="doc">	    <!--	Documents	-->	</tbody>
-				</table>
-			</div>
-		</container>
-
-    <container class="notes_container">
-      <div class="listeNotes">
-        <table>
-          <thead><tr><th>Matiere</th> <th>Note</th> <th>date</th> </tr></thead>
-          <tbody id="note"> <!--	Notes	-->	</tbody>
-        </table>
+          <footer class="main-footer d-flex p-2 px-3 bg-white border-top">
+            <ul class="nav">
+              <li class="nav-item">
+                <a class="nav-link" onclick="home()">Accueil</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" onclick="formations()">Formations</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" onclick="absences()">Absences</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" onclick="documents()">Documents</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" onclick="settings()">Settings</a>
+              </li>
+            </ul>
+            <span class="copyright ml-auto my-auto mr-2">Copyright © 2018
+              <a rel="nofollow">AcademyGeneva by RE|BORN</a>
+            </span>
+          </footer>
+        </main>
       </div>
-    </container>
-	</body>
-
-	<script>
-
-	// Affichage d'un questionnaire
-function absence_show(id_absence){
-	document.location.href=  "./absence/" + id_absence;
-};
-
-// Affichage d'un questionnaire
-function document_show(id_doc){
-	document.location.href=  "./document/" + id_doc;
-};
-
-
-$(document).ready(function() {
-
-// Show questionnary
-var absence = <%- JSON.stringify(absences) %>;
-var documents = <%- JSON.stringify(documents) %>;
-var notes = <%- JSON.stringify(notes) %>;
-var events = <%- JSON.stringify(events) %>;
-
-for(var i in absence){
-	if (absence[i].ETAT_ABSENCE == "Justifié")
-		var s = '<tr onclick="absence_show(\'' + absence[i].IDENTIFIANT_ABSENCE + '\');" ><td>' + absence[i].PRENOM_ELEVE + '</td><td>' + absence[i].NOM_ELEVE + '</td> <td>' + absence[i].DATE_ABSENCE + '</td> <td>' + absence[i].TYPE_ABSENCE + '</td> <td class="complet">' + absence[i].ETAT_ABSENCE + '</td></tr>';
-	else
-		var s = '<tr onclick="absence_show(\'' + absence[i].IDENTIFIANT_ABSENCE + '\');" ><td>' + absence[i].PRENOM_ELEVE + '</td><td>' + absence[i].NOM_ELEVE + '</td> <td>' + absence[i].DATE_ABSENCE + '</td> <td>' + absence[i].TYPE_ABSENCE + '</td> <td class="imcomplet">' + absence[i].ETAT_ABSENCE + '</td></tr>';
-	$('#abs').append(s);
-}
-
-for(var i in documents){
-	var s = '<tr onclick="document_show(\'' + documents[i].IDENTIFIANT_DOCUMENT + '\');" ><td>' + documents[i].NOM_DOCUMENT + '</td><td>' + documents[i].TAILLE_DOCUMENT + ' Mo</td></tr>';
-	$('#doc').append(s);
-}
-
-for(var i in notes){
-	var s = '<tr><td>' + notes[i].NOM_MATIERE + '</td><td>' + notes[i].VALEUR_NOTE + ' </td><td>' + notes[i].DATE_NOTE + '</tr>';
-	$('#note').append(s);
-}
-
-	// Ajout d'un questionnaire
-	$('#addQuestionnaire').click(function(){
-		var nom_questionnaire = '';
-		socket.emit('req_add_questionnaire', nom_questionnaire);
-		socket.on('res_add_questionnaire', function(id_quest){
-		document.location.href = './questionnaire/'+ id_quest;
-		});
-	});
-
-
-$('#fastQuestion').click(function(){
-	var questionnaire_name = "Questionnaire rapide";
-	socket.emit('req_fastquestion_add', questionnaire_name);
-	socket.on('res_fastquestion_add', function(id_question){
-		document.location.href=  "./fastquestion/" + id_question;
-	});
-});
-
-$('#FaireAppel').click(function(){
-		document.location.href=  "./appel";
-});
-
-$(function() {
-		$('#bootstrapModalFullCalendar').fullCalendar({
-			events: events,
-			header: {
-				left: 'prev,next today',
-				center: 'title',
-				right: 'month,agendaWeek,agendaDay'
-			},
-			eventClick:  function(event, jsEvent, view) {
-					var year = event.start._i.substring(0,4);
-					var month = event.start._i.substring(6,7);
-					var day = event.start._i.substring(9,10);
-					var hour = event.start._i.substring(11,19);
-					$('#modalTitle').html(event.title);
-					$('#modalBody').html('Commence le '+ day +'/'+ month +'/'+year+' à '+hour);
-					//$('#modalBody2').html('Termine le '+ day +'/'+ month +'/'+year+' à '+hour);
-					$('#modalBody3').html(event.description);
-					$('#fullCalModal').modal();
-					return false;
-			}
-	});
-});
-});
-</script>
+    </div>
+  </body>
 </html>
+
+<%- include('./partials/footer'); -%>
+<script src='http://fullcalendar.io/js/fullcalendar-2.1.1/lib/moment.min.js'></script>
+<script src='http://fullcalendar.io/js/fullcalendar-2.1.1/lib/jquery.min.js'></script>
+<script src="http://fullcalendar.io/js/fullcalendar-2.1.1/lib/jquery-ui.custom.min.js"></script>
+<script src='http://fullcalendar.io/js/fullcalendar-2.1.1/fullcalendar.min.js'></script>
+
+<script>
+  var login = <%- JSON.stringify(login) %>;
+  var user = <%- JSON.stringify(user) %>;
+
+  $(document).ready(function() {
+    $("#first_name_user").append('<input type="text" class="form-control" id="feFirstName" placeholder="First Name" value="' + jsUcfirst(user[0].PRENOM_ADMIN) + '"></div>');
+    $("#last_name_user").append('<input type="text" class="form-control" id="feLastName" placeholder="Last Name" value="' + jsUcfirst(user[0].NOM_ADMIN) + '"> </div>');
+    $("#info_card_user").append('<h4 class="mb-0">' + jsUcfirst(user[0].PRENOM_ADMIN) + ' ' + jsUcfirst(user[0].NOM_ADMIN) + '</h4> <span class="text-muted d-block mb-2">Administrateur</span>');
+  });
+
+</script>
